@@ -9,7 +9,7 @@ Examples are included in the example folder, but simple usage is as follows:
 
 ```hcl
 module "cloudquery" {
-  source = "cloudquery/gcp"
+  source = "cloudquery/cloudquery/gcp"
   version = "~> 0.5"
   name       = "cloudquery-complete-example"
   project_id = var.project_id
