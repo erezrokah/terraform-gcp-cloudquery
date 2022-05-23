@@ -1,6 +1,6 @@
 
 # google_client_config and kubernetes provider must be explicitly specified like the following.
-# Alot is taken from this example:
+# A lot is taken from this example:
 # https://github.com/terraform-google-modules/terraform-google-kubernetes-engine/blob/master/examples/simple_autopilot_public/main.tf
 
 locals {
