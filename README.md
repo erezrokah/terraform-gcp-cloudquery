@@ -6,6 +6,7 @@ This folder contains a Terraform module to deploy a CloudQuery cluster in GCP on
 
 Examples are included in the example folder, but simple usage is as follows:
 
+
 ```hcl
 module "cloudquery" {
   source = "cloudquery/gcp"
