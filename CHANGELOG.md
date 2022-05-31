@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.1.0](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.0.1...v1.1.0) (2022-05-31)
+
+
+### Features
+
+* Create publicly accessible option ([d172ae3](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/d172ae3032f8b414ab4bc6a07adeb8ca19651e3d))
+
 ## [1.0.1](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.0.0...v1.0.1) (2022-05-23)
 
 
