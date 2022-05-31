@@ -10,9 +10,16 @@ locals {
   pods_range_name        = "${var.name}-ip-range-pods-public"
   svc_range_name         = "${var.name}-ip-range-svc-public"
   subnet_names           = [for subnet_self_link in module.gcp_network.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
+  zones = length(var.zones) > 0 ? var.zones : [data.google_compute_zones.available.names[0]]
 }
 
 data "google_client_config" "default" {}
+
+resource "random_password" "sql" {
+  length  = 14
+  special = false
+}
+
 
 resource "random_string" "pg_suffix" {
   length  = 4
@@ -32,7 +39,9 @@ module "project_services" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "servicenetworking.googleapis.com",
-    "cloudresourcemanager.googleapis.com"
+    "cloudresourcemanager.googleapis.com",
+    "secretmanager.googleapis.com",
+    "sts.googleapis.com"
   ]
 }
 
@@ -68,20 +77,25 @@ module "gcp_network" {
       },
     ]
   }
+
+  depends_on = [
+    module.project_services
+  ]
 }
 
 
 # GKE Cluster
 module "gke" {
-  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  version = "~> 20.0"
+  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
+  version = "~> 21.0"
 
   # Create an implicit dependency on service activation
   project_id = var.project_id
 
   name               = var.name
   region             = var.region
-  regional           = true
+  regional           = false
+  zones             = local.zones
   kubernetes_version = var.gke_version
 
   network           = module.gcp_network.network_name
@@ -94,6 +108,22 @@ module "gke" {
   release_channel                 = "REGULAR"
   create_service_account          = true
   enable_vertical_pod_autoscaling = true
+
+  node_pools = [
+    {
+      name            = "pool-01"
+      machine_type    = var.machine_type
+      min_count       = 1
+      max_count       = 2
+      preemptible = true
+      disk_size_gb = 50
+      # service_account = var.compute_engine_service_account
+      auto_upgrade    = true
+    }
+  ]
+  depends_on = [
+    module.project_services
+  ]
 }
 
 
@@ -104,20 +134,39 @@ resource "google_secret_manager_secret" "cloudquery" {
   replication {
     automatic = true
   }
+  depends_on = [
+    module.project_services
+  ]
 }
 
 resource "google_secret_manager_secret_version" "cloudquery" {
   secret = google_secret_manager_secret.cloudquery.id
 
-  secret_data = "postgres://default:${module.postgresql.generated_user_password}@${module.postgresql.private_ip_address}:5432/postgres"
+  secret_data = "postgres://cloudquery:${random_password.sql.result}@${module.postgresql.private_ip_address}:5432/postgres"
 }
+
+data "google_secret_manager_secret_version" "cloudquery" {
+ secret = google_secret_manager_secret.cloudquery.id
+ depends_on = [
+   google_secret_manager_secret_version.cloudquery
+ ]
+}
+
 
 
 module "private_service_access" {
   source      = "GoogleCloudPlatform/sql-db/google//modules/private_service_access"
   project_id  = var.project_id
   vpc_network = module.gcp_network.network_name
-  depends_on  = [module.gcp_network]
+  depends_on  = [module.gcp_network, module.project_services]
+}
+
+data "google_compute_zones" "available" {
+  project   = var.project_id
+  region = var.region
+  depends_on = [
+    module.project_services,
+  ]
 }
 
 module "postgresql" {
@@ -130,17 +179,20 @@ module "postgresql" {
   tier             = "db-custom-1-3840"
 
   deletion_protection = false
+  user_name = "cloudquery"
+  user_password = random_password.sql.result
 
   ip_configuration = {
     ipv4_enabled        = true
     private_network     = module.gcp_network.network_self_link
     require_ssl         = false
-    authorized_networks = []
+    authorized_networks = var.authorized_networks
     allocated_ip_range  = module.private_service_access.google_compute_global_address_name
   }
   depends_on = [
     module.gcp_network,
     module.private_service_access,
+    module.project_services
   ]
 }
 
@@ -160,7 +212,8 @@ resource "google_project_iam_binding" "project" {
 
   depends_on = [
     helm_release.cloudquery,
-    data.google_service_account.gke_sa
+    data.google_service_account.gke_sa,
+    module.project_services
   ]
 }
 

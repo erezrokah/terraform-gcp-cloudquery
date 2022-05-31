@@ -11,7 +11,9 @@ terraform init
 terraform plan
 terraform apply
 
-gcloud container clusters get-credentials cloudquery-complete-example --zone us-east1 --project cq-playground
+export PROJECT_ID=YOUR_PROJECT_ID
+export ZONE=YOUR_ZONE
+gcloud container clusters get-credentials cloudquery-complete-example --zone ${ZONE} --project ${PROJECT_ID}
 
 # This should print helpers from the helm
 helm get notes cloudquery-complete-example --namespace cloudquery

@@ -48,7 +48,7 @@ serviceAccount:
   annotations:
     iam.gke.io/gcp-service-account: ${data.google_service_account.gke_sa.email}
 envRenderSecret:
-  "CQ_VAR_DSN": "postgres://default:${module.postgresql.generated_user_password}@${module.postgresql.private_ip_address}:5432/postgres"
+  "CQ_VAR_DSN": "${data.google_secret_manager_secret_version.cloudquery.secret_data}"
 config: |
   ${indent(2, file(var.config_file))}
 EOT
