@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.0...v1.1.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* Fix README code section ([#5](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/5)) ([5614cfc](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/5614cfcfcfb033186cea6974d571e74d0c303069))
+
 # [1.1.0](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.0.1...v1.1.0) (2022-05-31)
 
 
