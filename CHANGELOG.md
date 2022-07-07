@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.2...v1.1.3) (2022-07-07)
+
+
+### Bug Fixes
+
+* **deps:** Update actions/checkout action to v3 ([#17](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/17)) ([9368085](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/93680850e932d3f400f3a9e28ea5f2c376de9110))
+* **deps:** Update amannn/action-semantic-pull-request action to v4 ([#18](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/18)) ([bdc4126](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/bdc4126eb0506e6f0899adc7cfe089115bffe2cf))
+* **deps:** Update clowdhaus/terraform-composite-actions action to v1.5.0 ([#15](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/15)) ([67b7568](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/67b7568c91f997c50a5e325b969265c19845a95b))
+* **deps:** Update clowdhaus/terraform-min-max action to v1.0.8 ([#13](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/13)) ([21d3d32](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/21d3d329b1b1204b5af7641cfdfd9c5a089961e5))
+* **deps:** Update dependency cloudquery/helm-charts to v0.2.8 ([#20](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/20)) ([d102064](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/d102064b9fe25840d85c7c3f5b3e296509018ba3))
+
 ## [1.1.2](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.1...v1.1.2) (2022-06-15)
 
 
