@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.14](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.13...v1.1.14) (2022-10-13)
+
+
+### Bug Fixes
+
+* Revert "fix(deps): Update dependency cloudquery/helm-charts to v1 ([#38](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/38))" ([#39](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/39)) ([6e1a80c](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/6e1a80cf1f92716bc93a252ae2b232e6f9b90afc))
+
 ## [1.1.13](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.12...v1.1.13) (2022-10-13)
 
 
