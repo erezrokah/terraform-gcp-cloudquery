@@ -6,7 +6,7 @@ The configuration in this directory create complete setup of CloudQuery on top o
 
 Create the resources:
 
-```
+```bash
 terraform init
 terraform plan
 terraform apply
@@ -29,10 +29,8 @@ helm uninstall cloudquery-complete-example -n cloudquery
 
 ```
 
-
-
 Destroy the resources:
 
-```
+```bash
 terraform destroy
 ```
