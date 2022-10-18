@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.0.0](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.14...v2.0.0) (2022-10-18)
+
+
+### Features
+
+* Update to helm-charts v1 ([#42](https://github.com/cloudquery/terraform-gcp-cloudquery/issues/42)) ([4d11772](https://github.com/cloudquery/terraform-gcp-cloudquery/commit/4d117725129174aca9f607045606b388e65cffc6))
+
+
+### BREAKING CHANGES
+
+* Update to helm-charts v1
+* Update to helm-charts v1
+
 ## [1.1.14](https://github.com/cloudquery/terraform-gcp-cloudquery/compare/v1.1.13...v1.1.14) (2022-10-13)
 
 
